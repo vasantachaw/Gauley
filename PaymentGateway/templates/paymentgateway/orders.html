@@ -1,0 +1,82 @@
+{% extends 'MainApp/Layout.html' %}
+{% load static %}
+{% block title %} Orders {% endblock %}
+{% block main-content %}
+<section class="py-3 overflow-hidden mt-3">
+  <div class="container-fluid"
+    style=" background-image: linear-gradient(to top,rgba(243, 231, 233, 0.07) 0%,rgba(227, 238, 255, 0.1) 99%,rgba(227, 238, 255, 0.01) 100%);">
+    <div class="row justify-content-center" style="margin-bottom:40%;">
+      <div class="col-12">
+        <h1 class="text-center  mb-5" style="font-family: 'Titillium Web', sans-serif; font-weight:lighter;color: orange;">
+          Your Orders</h1>
+        <div class="table-responsive">
+          <table class="table table-sm align-middle text-center">
+            <thead>
+              <tr style="border-bottom: 1px solid orange;">
+                <th scope="col" class="p-1" style="color:orange;">#</th>
+                <th scope="col" class="p-1" style="color:orange;">Product</th>
+                <th scope="col" class="p-1" style="color:orange;">Quantity</th>
+                <th scope="col" class="p-1" style="color:orange;">Price</th>
+                <th scope="col" class="p-1" style="color:orange;">Status</th>
+                <th scope="col" class="p-1" style="color:orange;">Progress</th>
+                <th scope="col" class="p-1" style="color:orange;">Order Date</th>
+              </tr>
+
+            </thead>
+
+            <tbody class="table-group-divider">
+
+              {% for order in orders %}
+              <tr style="border-bottom: 1px solid rgba(211, 211, 211, 0.438);">
+
+                <th scope="row" class="p-1">{{ forloop.counter }}</th>
+                <td class="p-1">
+                  <img class="img-fluid rounded-circle" style="width: 60px; height: 60px; object-fit: cover;background-color: transparent;"
+                    src="{{ order.product.first_product_image.url|default:'/static/images/placeholder.jpg' }}"
+                    alt="Product Image" />
+                </td>
+                <td class="p-1 text-nowrap" style="color: green;">{{ order.quantity }}</td>
+                <td class="p-1 text-nowrap" style="color:green;">{{ order.total_cost|floatformat:2 }}</td>
+                <td class="p-1 text-nowrap">
+                {% if order.status == 'Pending' %}
+                    <p style="color:black;">{{ order.status }}</p>
+                {% elif order.status == 'Accepted' %}
+                    <p style="color:green;">{{ order.status }}</p>
+                {% elif order.status == 'Cancelled' %}
+                    <p style="color:tomato;">{{ order.status }}</p>
+                {% elif order.status == 'Packed' %}
+                    <p style="color:black;">{{ order.status }}</p>
+                {% elif order.status == 'On The Way' %}
+                    <p style="color:black;">{{ order.status }}</p>
+                {% elif order.status == 'Delivered' %}
+                    <p style="color:black;">{{ order.status }}</p>
+                {% endif %}
+              </td>
+                <td class="p-1 text-nowrap">            
+                  {% if order.status == 'Pending' %}
+                  <img src="{% static 'MainApp/images/status/time.gif' %}" style="width: 50px; height: auto;" alt="Pending">
+                  {% elif order.status == 'Accepted' %}
+                  <img src="{% static 'MainApp/images/status/accepted.png' %}" style="width: 35px; height: auto;" alt="Accepted">
+                  {% elif order.status == 'Cancelled' %}
+                  <img src="{% static 'MainApp/images/status/cancelled.png' %}" style="width: 30px; height: auto;" alt="Cancelled">
+                  {% elif order.status == 'Packed' %}
+                  <img src="{% static 'MainApp/images/status/packing.gif' %}" style="width: 50px; height: auto;" alt="Packed">
+                  {% elif order.status == 'On The Way' %}
+                  <img src="{% static 'MainApp/images/status/way.gif' %}" style="width: 50px; height: auto;" alt="On The Way">
+                  {% elif order.status == 'Delivered' %}
+                  <img src="{% static 'MainApp/images/status/courier.gif' %}" style="width: 50px; height: auto;" alt="Delivered">
+                  {% endif %}
+                </td>
+                <td class="p-1 text-nowrap" style="color:orange;">{{ order.ordered_date|date:'Y/m/d' }}</td>
+              </tr>
+              {% endfor %}
+
+            </tbody>
+          </table>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

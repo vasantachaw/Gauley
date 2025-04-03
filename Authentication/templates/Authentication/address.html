@@ -1,0 +1,97 @@
+{% extends 'MainApp/Layout.html' %}
+{% load static %}
+{% block title %}
+  Address
+{% endblock %}
+{% block main-content %}
+
+<section>
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-lg-8 mb-4 mb-lg-0">
+        <div class="" style="border-radius:20px; border: 2px dotted rgba(255, 166, 0, 0.151);">
+          <div class="row g-0">
+            {% for ad in address %}
+              <div class="col-12 col-md-4 col-lg-4 p-4 gradient-custom text-center text-white" style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
+              {% if ad.avatar %}
+              <img src="{{ ad.avatar.url }}" alt=" Avatar" class="img-fluid my-5" style="width: 80px;border-radius:50px; border:6px double rgba(255, 166, 0, 0.144);" />
+
+              {% else %}
+              <img src="{% static 'Authentication/images/users.png' %}" alt=" Avatar" class="img-fluid my-5" style="width: 80px;border-radius:50px; border:6px double rgba(255, 166, 0, 0.144);" />
+
+              {% endif %}
+                <h5>{{ ad.fname | capfirst }} {{ ad.mname|default:'' | capfirst }} {{ ad.lname | capfirst }}</h5>
+                <a href="{% url 'profile' %}">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+                  </svg>
+                </a>
+              </div>
+
+              <div class="col-12 col-md-8 col-lg-8">
+                <div class="card-body p-4">
+                  <h6>Information</h6>
+                  <hr class="mt-0 mb-4" />
+                  <div class="row pt-1">
+                    <div class="col-md-6 mb-3">
+                      <h6>Email</h6>
+                      <p class="text-muted">{{ ad.user.email }}</p>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <h6>Phone</h6>
+                      <p class="text-muted">{{ ad.phone|default:'Not provided' }}</p>
+                    </div>
+                  </div>
+                  <hr class="text-muted" />
+                  <div class="row pt-1">
+                    <div class="col-6 mb-3">
+                      <h6>Address</h6>
+                      <p class="text-muted">{{ ad.address|default:'Not provided' }}</p>
+                    </div>
+                    <div class="col-6 mb-3">
+                      <h6>State</h6>
+                      <p class="text-muted">{{ ad.state|default:'Not provided' }}</p>
+                    </div>
+                    <div class="col-6 mb-3">
+                      <h6>City</h6>
+                      <p class="text-muted">{{ ad.city|default:'Not provided' }}</p>
+                    </div>
+                    <div class="col-6 mb-3">
+                      <h6>District</h6>
+                      <p class="text-muted">{{ ad.district|default:'Not provided' }}</p>
+                    </div>
+                    
+                    <div class="col-6 mb-3">
+                      <h6>Date of Birth</h6>
+                      <p class="text-muted">{{ ad.date_of_birth|date:'Y / m / d' }}</p>
+                    </div>
+                    <div class="col-6 mb-3">
+                      <h6>Gender</h6>
+                      <p class="text-muted">{{ ad.gender|default:'Not provided' }}</p>
+                    </div>
+                  </div>
+                  <hr class="mt-0 mb-4" />
+                  <div class="row pt-1">
+                    <div class="col-6 mb-3">
+                      <h6>Follow me</h6>
+                      <a href="#"><i class="fab fa-facebook-f fa-lg me-3"></i></a>
+                      <a href="#"><i class="fab fa-twitter fa-lg me-3"></i></a>
+                      <a href="#"><i class="fab fa-instagram fa-lg"></i></a>
+                    </div>
+                    <div class="col-6 mb-3">
+                      <h6>Joined In</h6>
+                      <p class="text-muted">{{ ad.user.date_joined|date:"Y/m/d" }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock  %}

@@ -1,0 +1,76 @@
+{% extends 'MainApp/Layout.html' %}
+{% load static %}
+{% block title %} Blogs {% endblock title %} 
+{% block main-content %}
+
+<section id="latest-blog" class="py-5">
+    <div class="container-fluid">
+        <h2 class="section-title text-center text-muted mb-3" style="font-family: 'Open Sans', sans-serif;font-optical-sizing: auto;font-weight:normal;font-style: normal;">
+            Our Recent Blog
+        </h2>
+        <div class="row">
+            {% for article in articles %}
+            <div class="col-md-4">
+                <article class="post-item card border-0 shadow-sm p-3">
+                    <div class="image-holder zoom-effect">
+                        <a href="{% url 'blog_view' article.id %}">
+                            {% if article.image_urls %}
+                                <img src="{{ article.image_urls.0 }}" alt="post" class="card-img-top">
+                            {% else %}
+                                <img src="path/to/default/image.jpg" alt="default post image" class="card-img-top">
+                            {% endif %}
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <div class="post-meta d-flex text-uppercase gap-3 my-2 align-items-center">
+                            <div class="meta-date">
+                                <svg width="16" height="16">
+                                    <use xlink:href="#calendar"></use>
+                                </svg>
+                                {{ article.created_at|date:"d M Y" }}
+                            </div>
+                            <div class="meta-categories">
+                                <svg width="16" height="16">
+                                    <use xlink:href="#category"></use>
+                                </svg>
+                                News
+                            </div>
+                        </div>
+                        <div class="post-header text-justify">
+                            <h3 class="post-title">
+                                <a href="{% url 'blog_view' article.id %}" class="text-decoration-none">{{ article.title }}</a>
+                            </h3>
+                            <p class="text-justify">{{ article.content|truncatewords:30 |safe }}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <a href="{% url 'blog_view' article.id %}" class="btn btn-dark mt-2">read more ..</a>
+                                <div>
+                                   
+                                    <button class="btn btn-outline-success btn-sm share-btn " onclick="sharePost('{{ article.title }}', '{% url 'blog_view' article.id %}')">
+                                        <i class="bi bi-share "></i> Share
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<script>
+function sharePost(title, url) {
+    if (navigator.share) {
+        navigator.share({
+            title: title,
+            url: url
+        }).then(() => console.log('Thanks for sharing!'))
+        .catch(console.error);
+    } else {
+        alert('Sharing is not supported in this browser.');
+    }
+}
+</script>
+
+{% endblock %}
