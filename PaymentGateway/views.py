@@ -40,7 +40,8 @@ def payment_done(request):
             user=request.user,
             customer=customer,
             product=product,
-            quantity=item.quantity
+            quantity=item.quantity,
+            amount=item.product.discount_price * item.quantity
         )
 
         # Update product stock
