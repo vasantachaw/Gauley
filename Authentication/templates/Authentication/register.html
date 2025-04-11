@@ -1,0 +1,93 @@
+{% extends "Authentication/layout.html" %}
+{% load static %}
+{% block title %}Register{% endblock %}
+{% block form_page %}
+<form action="{% url 'register' %}" autocomplete="off" class="sign-in-form" method="POST" novalidate>
+    {% csrf_token %}
+    <div class="logo">
+        <img src="{% static 'Authentication/images/logo.png' %}" alt="easyclass" style="height:7vh;width:auto;" />
+         <h4>Gauley</h4>
+        
+    </div>
+
+    <div class="heading">
+        <h2>Welcome Back</h2>
+        <h4>Sign up</h4>
+        <h6>Not sign in yet?</h6>
+        <a href="{% url 'login' %}" class="toggle">Login</a>
+        {% if form.name.errors %}
+        <div class="text-danger text-sm mt-1">
+            {% for error in form.name.errors %}
+            <p class="">{{ error }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% if form.email.errors %}
+        <div class="text-danger text-sm mt-1">
+            {% for error in form.email.errors %}
+            <p>{{ error }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+
+        {% if form.password.errors %}
+        <div class="text-danger text-sm mt-1">
+            {% for error in form.password.errors %}
+            <p>{{ error }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+
+        {% if form.confirm_password.errors %}
+        <div class="text-danger text-sm mt-1">
+            {% for error in form.confirm_password.errors %}
+            <p>{{ error }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+
+    </div>
+
+
+    <div class="actual-form">
+        <div class="input-wrap">
+
+            <input type="text" name="name" value="{{ form.name.value|default:'' }}" minlength="4" class="input-field"
+                autocomplete="off" />
+            <label>Name</label>
+
+        </div>
+
+        <div class="input-wrap">
+            <input type="email" name="email" value="{{ form.email.value|default:'' }}" minlength="4" class="input-field"
+                autocomplete="off" />
+            <label>Email</label>
+
+        </div>
+        <div class="input-wrap">
+            <input type="password" minlength="4" value="{{ form.password.value|default:'' }}" name="password"
+                class="input-field" autocomplete="off" />
+            <label>Password</label>
+
+        </div>
+        <div class="input-wrap">
+            <input type="password" value="{{ form.confirm_password.value|default:'' }}" name="confirm_password"
+                minlength="4" class="input-field" autocomplete="off" />
+            <label>Confirm Password</label>
+
+        </div>
+
+        <input type="submit" value="Sign In" class="sign-btn" />
+
+        <p class="text">
+            Forgotten your password or you login datails?
+            <a href="#">Get help</a> signing in
+        </p>
+    </div>
+</form>
+
+{% endblock %}

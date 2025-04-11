@@ -1,0 +1,9 @@
+<form hx-post="{% url 'toggle_wishlist' berverage.id %}">
+    {% csrf_token %}
+    <button type="submit" class="btn-wishlist text-muted" aria-label="Add to Wishlist" 
+    style="background-color: {% if  in_wishlist %} orange {% else %} transparent {% endif %}; text-color:{% if  in_wishlist %} white {% else %} black {% endif %};">
+        <svg width="24" height="24">
+            <use xlink:href="#heart"></use>
+        </svg>
+    </button>
+</form>
