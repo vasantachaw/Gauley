@@ -1,0 +1,1013 @@
+{% extends 'MainApp/Layout.html' %}
+{% load static %}
+{% block title %}
+Home
+{% endblock %}
+
+{% block main-content %}{% load static %}
+
+<section class="py-3">
+  <div class="container-fluid">
+    <div class="row"
+      style="background-image: url('{% static 'MainApp/images/background-pattern.jpg' %}'); background-repeat: no-repeat; background-size: cover;">
+      <div class="col-md-12">
+        <div class="banner-blocks">
+
+          <!-- Main Banner -->
+          <div class="banner-ad large block-1"
+            style="background-image: linear-gradient(-225deg, #E3FDF5 0%, #FFE6FA 100%);">
+            <div class="swiper main-swiper">
+              <div class="swiper-wrapper">
+                {% for banner in banner %}
+                <div class="swiper-slide">
+                  <div class="row banner-content p-5 align-items-center">
+                    <div class="content-wrapper col-md-7 text-center text-md-start">
+                      <div class="categories my-3">{{ banner.discount_percent }}% Off</div>
+                      <h3 class="display-6 text-muted">{{ banner.title }}</h3>
+                      <p>{{ banner.description|truncatewords:30|safe }}</p>
+                      <a href="#" class="btn btn-dark btn-lg text-uppercase fs-6 rounded-1 px-4 py-3 mt-3">
+                        Shop Now
+                      </a>
+                    </div>
+                    <div class="img-wrapper col-md-5 text-center">
+                      <img src="{{ banner.first_product_image.url }}" alt="{{ banner.title }}" class="img-fluid"
+                        style="max-width: 100%; height: auto; object-fit: cover; filter: drop-shadow(15px 10px 5px #dd444427);"
+                        id="pImage" />
+                    </div>
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+              <div class="swiper-pagination"></div>
+            </div>
+          </div>
+
+          <!-- Secondary Banners -->
+          {% for off in off %}
+          <div class="banner-ad block-2" style="background-image: linear-gradient(-225deg, #E3FDF5 0%, #FFE6FA 100%); ">
+
+            <div class="row banner-content p-5 align-items-center">
+              <div class="content-wrapper col-md-7 text-center text-md-start">
+                <div class="categories sale mb-3 pb-3">{{ off.discount_percent }}% off</div>
+                <h3 class="banner-title">{{ off.title }}</h3>
+                <a href="#" class="d-flex align-items-center justify-content-center justify-content-md-start nav-link">
+                  Shop Collection
+                  <svg width="24" height="24">
+                    <use xlink:href="#arrow-right"></use>
+                  </svg>
+                </a>
+              </div>
+              <div class="col-md-5 text-center">
+                <img src="{{ off.first_product_image.url }}" alt="{{ off.title }}" class="img-fluid"
+                  style="max-width: 100%; height: auto; object-fit: cover; filter: drop-shadow(10px 5px 3px #dd444421);"
+                  id="pImage" />
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+
+          {% for on in on %}
+          <div class="banner-ad block-3" style="background-image: linear-gradient(-20deg, #e9defa 0%, #fbfcdb 100%);">
+            <div class="row banner-content p-5 align-items-center">
+              <div class="content-wrapper col-md-7 text-center text-md-start">
+                <div class="categories sale mb-3 pb-3">{{ on.discount_percent }}% off</div>
+                <h3 class="item-title">{{ on.title }}</h3>
+                <a href="#" class="d-flex align-items-center justify-content-center justify-content-md-start nav-link">
+                  Shop Collection
+                  <svg width="24" height="24">
+                    <use xlink:href="#arrow-right"></use>
+                  </svg>
+                </a>
+              </div>
+              <div class="col-md-5 text-center">
+                <img src="{{ on.first_product_image.url }}" alt="{{ on.title }}" class="img-fluid"
+                  style="max-width: 100%; height: auto; object-fit: cover; filter: drop-shadow(10px 5px 3px #dd444421);"
+                  id="pImage" />
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="py-5 overflow-hidden">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+
+        <div class="section-header d-flex flex-wrap justify-content-between mb-5">
+          <h3 class="text-muted"
+            style="font-family: 'Open Sans', sans-serif;font-optical-sizing: auto;font-weight:normal;font-style: normal;">
+            Category</h3>
+
+          <div class="d-flex align-items-center">
+            <a href="#" class="btn-link text-decoration-none">View All Categories →</a>
+            <div class="swiper-buttons">
+              <button class="swiper-prev category-carousel-prev btn btn-yellow">❮</button>
+              <button class="swiper-next category-carousel-next btn btn-yellow">❯</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+
+        <div class="category-carousel swiper">
+          <div class="swiper-wrapper">
+            <a href="{% url 'grocery' %}" class="nav-link category-item swiper-slide">
+              <img src="{% static 'MainApp/images/ItemsIcons/grocery.gif' %}" style="width: 80px;"
+                alt="Category Thumbnail" class="category-gif">
+              <h3 class="category-title">Grocery Items</h3>
+            </a>
+            <a href="{% url 'vegetables' %}" class="nav-link category-item swiper-slide">
+              <img src="{% static 'MainApp/images/ItemsIcons/vegetable.gif' %}" style="width: 80px;"
+                alt="Category Thumbnail" class="category-gif">
+              <h3 class="category-title">Vegetables</h3>
+            </a>
+            <a href="{% url 'instantfood' %}" class="nav-link category-item swiper-slide">
+              <img src="{% static 'MainApp/images/ItemsIcons/instantfood.gif' %}" style="width: 80px;"
+                alt="Category Thumbnail" class="category-gif">
+              <h3 class="category-title">Snacks Food</h3>
+            </a>
+            <a href="{% url 'fruits' %}" class="nav-link category-item swiper-slide">
+              <img src="{% static 'MainApp/images/ItemsIcons/fruits.gif' %}" style="width: 80px;"
+                alt="Category Thumbnail" class="category-gif">
+              <h3 class="category-title">Fruits</h3>
+            </a>
+            <a href="{% url 'dairy' %}" class="nav-link category-item swiper-slide">
+              <img src="{% static 'MainApp/images/ItemsIcons/dairy.gif' %}" style="width: 80px;"
+                alt="Category Thumbnail" class="category-gif">
+              <h3 class="category-title">Dairy</h3>
+            </a>
+            <a href="{% url 'beverage' %}" class="nav-link category-item swiper-slide">
+              <img src="{% static 'MainApp/images/ItemsIcons/beverage.gif' %}" style="width: 80px;"
+                alt="Category Thumbnail" class="category-gif">
+              <h3 class="category-title">Drinks</h3>
+            </a>
+            <a href="{% url 'proteins' %}" class="nav-link category-item swiper-slide">
+              <img src="{% static 'MainApp/images/ItemsIcons/proteins.gif' %}" style="width: 80px;"
+                alt="Category Thumbnail" class="category-gif">
+              <h3 class="category-title">Proteins</h3>
+            </a>
+            <a href="{% url 'pickleAndJam' %}" class="nav-link category-item swiper-slide">
+              <img src="{% static 'MainApp/images/ItemsIcons/jam.gif' %}" style="width: 80px;" alt="Category Thumbnail"
+                class="category-gif">
+              <h3 class="category-title">Pickles & Jams</h3>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+{% if fav %}
+<section class="py-2 overflow-hidden">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+
+        <div class="section-header d-flex flex-wrap justify-content-between mb-2">
+          <h3 class="text-muted"
+            style="font-family: 'Open Sans', sans-serif;font-optical-sizing: auto;font-weight:normal;font-style: normal;">
+            Your favs</h3>
+
+          <div class="d-flex align-items-center">
+            <a href="{% url 'wishlist' %}" class="btn-link text-decoration-none">View All Categories →</a>
+            <div class="swiper-buttons">
+              <button class="swiper-prev category-carousel-prev btn btn-yellow">❮</button>
+              <button class="swiper-next category-carousel-next btn btn-yellow">❯</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+
+        <div class="category-carousel swiper">
+          <div class="swiper-wrapper">
+            {% for favs in fav %}
+            <a href="{% url 'product_detail' favs.product.id %}" class="nav-link category-item swiper-slide">
+              <img src="{{favs.product.first_product_image.url}}" style="width: 80px;" alt="Category Thumbnail"
+                class="category-gif">
+              <h3 class="category-title">{{favs.product.title}}</h3>
+            </a>
+            {% endfor %}
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<section class="py-2">
+  <div class="container-fluid">
+
+    <div class="row">
+      <div class="col-md-12">
+
+        <div class="bootstrap-tabs product-tabs">
+          <div class="tabs-header d-flex justify-content-between border-bottom my-5">
+            <h3 class="text-muted"
+              style="font-family: 'Open Sans', sans-serif;font-optical-sizing: auto;font-weight:normal;font-style: normal;">
+              Trending Products</h3>
+            <nav>
+              <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <a href="#" class="nav-link text-uppercase fs-6 active" id="nav-all-tab" data-bs-toggle="tab"
+                  data-bs-target="#nav-all">All</a>
+
+              </div>
+            </nav>
+          </div>
+          <form action="{% url 'allfilter' %}" method="GET">
+            {% csrf_token %}
+            <table class="table mb-4">
+              <thead>
+                <tr style="display: flex; justify-content: center;">
+
+                  <!-- Min Price Input -->
+                  <th scope="col">
+                    <label class="sr-only" for="minprice">Min Price</label>
+                    <div class="input-group mb-2">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">Min Price</div>
+                      </div>
+                      <input type="number" class="form-control" name="minprice"
+                        value="{{ request.GET.minprice|default:0 }}" placeholder="1"
+                        style="border:1px solid rgba(211, 211, 211, 0.418);">
+                    </div>
+                  </th>
+
+                  <!-- Filter Button -->
+                  <th scope="col">
+                    <button type="submit" class="btn btn-primary btn-sm"
+                      style="letter-spacing: 2px; font-size: 17px; color: black;">
+                      <i class="bi bi-filter"></i> Filter
+                    </button>
+                  </th>
+
+                  <!-- Max Price Input -->
+                  <th scope="col">
+                    <label class="sr-only" for="maxprice">Max Price</label>
+                    <div class="input-group mb-2">
+                      <input type="number" class="form-control" name="maxprice"
+                        value="{{ request.GET.maxprice|default:1000 }}" placeholder="1000"
+                        style="border:1px solid rgba(211, 211, 211, 0.418); text-align: end;">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">Max Price</div>
+                      </div>
+                    </div>
+                  </th>
+                </tr>
+              </thead>
+            </table>
+          </form>
+          <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-all" role="tabpanel" aria-labelledby="nav-all-tab">
+
+              <div class="product-grid row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
+                {% for product in All_products %}
+                <div class="col">
+                  <div class="product-item">
+                    <span class="badge bg-success position-absolute m-3">{{ product.discount_percent }}</span>
+
+                    {% if user.is_authenticated %}
+                    <div hx-get="{% url 'toggle_wishlist' product.id %}" hx-trigger="load" hx-target="this"
+                      hx-swap="outerHTML"></div>
+                    {% endif %}
+
+                    <figure>
+                      <a href="{% url 'product_detail' product.id %}" title="{{ product.title }}">
+                        <img src="{{ product.first_product_image.url }}" class="tab-image" id="item"
+                          alt="{{ product.title }}" />
+                      </a>
+                    </figure>
+                    <h3>{{ product.title }}</h3>
+                    <div class="row align-items-center">
+                      <div class="col">
+                        {% if product.stock %}
+                        <span class="qty text-success">
+                         {{ product.stock }} Unit
+                       </span>
+                        {% else %}
+                        <span class="qty "style="color:tomato;">
+                         closed
+                       </span>
+                        {% endif %}
+                      </div>
+                    
+                      <div class="col text-end">
+                        <!-- You can add additional content here if needed -->
+                      </div>
+                    
+                      <div class="col text-end">
+                        <span class="rating d-inline-flex align-items-center">
+                          <svg width="24" height="24" class="text-primary me-1">
+                            <use xlink:href="#star-solid"></use>
+                          </svg>
+                          {{ product.average_rating|default_if_none:"0"|floatformat:1 }}
+                        </span>
+                      </div>
+                    </div>
+                    
+
+                    <div class="row">
+                      <div class="col">
+                        <span class="price">Rs.{{ product.discount_price }}</span>
+                      </div>
+                      <div class="col text-center">
+                        <span class="text-decoration-line-through ms-lg-3 ms-sm-4">Rs.{{ product.selling_price }}</span>
+                      </div>
+                    </div>
+                    <hr />
+                    <div class="d-flex align-items-center justify-content-between">
+                      <div class="input-group product-qty">
+                        <span class="input-group-btn">
+                          <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus"
+                            aria-label="Decrease Quantity">
+                            <svg width="16" height="16">
+                              <use xlink:href="#minus"></use>
+                            </svg>
+                          </button>
+                        </span>
+                        <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1"
+                          aria-label="Quantity" />
+                        <span class="input-group-btn">
+                          <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus"
+                            aria-label="Increase Quantity">
+                            <svg width="16" height="16">
+                              <use xlink:href="#plus"></use>
+                            </svg>
+                          </button>
+                        </span>
+                      </div>
+                      <a href="{% url 'product_detail' product.id %}" class="nav-link">Add to Cart <iconify-icon
+                          icon="uil:shopping-cart"></iconify-icon></a>
+                    </div>
+                  </div>
+                </div>
+                {% endfor %}
+
+
+              </div>
+              <!-- / product-grid -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="py-5">
+  <div class="container-fluid">
+    <div class="row">
+
+      <div class="col-md-6">
+        <div class="banner-ad bg-danger mb-3"
+          style="background-image: linear-gradient(to top, #dfe9f34d 0%, white 100%);">
+          <div class="banner-content p-5"
+            style="background: url('{% static 'MainApp/images/ad-image-3.png' %}');background-repeat: no-repeat;background-position: right bottom;filter: drop-shadow(30px 10px 4px #dd444421);">
+
+            <div class="categories text-primary fs-3 fw-bold">Upto 25% Off</div>
+            <h3 class="banner-title">Luxa Dark Chocolate</h3>
+            <p>Very tasty & creamy vanilla flavour creamy muffins.</p>
+            <a href="#" class="btn btn-dark text-uppercase">Show Now</a>
+
+          </div>
+
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="banner-ad bg-danger" style="background-image: linear-gradient(to top, #dfe9f323 0%, white 100%);">
+          <div class="banner-content p-5"
+            style="background: url('{% static 'MainApp/images/ad-image-4.png' %}');background-repeat: no-repeat;background-position: right bottom; filter: drop-shadow(30px 10px 4px #dd444421);">
+
+            <div class="categories text-primary fs-3 fw-bold">Upto 25% Off</div>
+            <h3 class="banner-title">Creamy Muffins</h3>
+            <p>Very tasty & creamy vanilla flavour creamy muffins.</p>
+            <a href="#" class="btn btn-dark text-uppercase">Show Now</a>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<section class="py-5 overflow-hidden">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="section-header d-flex justify-content-between">
+          <h2 class="text-muted"
+            style="font-family: 'Open Sans', sans-serif;font-optical-sizing: auto;font-weight:normal;font-style: normal;">
+            Just Arrived</h2>
+          <div class="d-flex align-items-center">
+            <a href="#" class="btn-link text-decoration-none">View All Categories →</a>
+            <div class="swiper-buttons">
+              <button class="swiper-prev products-carousel-prev btn btn-primary">❮</button>
+              <button class="swiper-next products-carousel-next btn btn-primary">❯</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="products-carousel swiper">
+          <div class="swiper-wrapper">
+            {% for product_latest in latest_products %}
+            <div class="product-item swiper-slide">
+              <span class="badge position-absolute m-3 bg-success">{{ product_latest.discount_percent }}</span>
+              
+              {% if user.is_authenticated %}
+              <div hx-get="{% url 'toggle_wishlist' product_latest.id %}" hx-trigger="load" hx-target="this"
+                hx-swap="outerHTML"></div>
+              {% endif %}
+              
+              <figure>
+                <a href="{% url 'product_detail' product_latest.id %}" title="{{ product_latest.title }}">
+                  <img src="{{ product_latest.first_product_image.url }}" class="tab-image"
+                    alt="{{ product_latest.title }}">
+                </a>
+              </figure>
+              <h3>{{ product_latest.title }}</h3>
+              
+              <div class="row align-items-center">
+                <div class="col">
+                  {% if product_latest.stock %}
+                  <span class="qty text-success">
+                   {{ product_latest.stock }} Unit
+                 </span>
+                  {% else %}
+                  <span class="qty "style="color:tomato;">
+                   closed
+                 </span>
+                  {% endif %}
+                </div>
+                <div class="col text-end">
+                  <span class="rating d-inline-flex align-items-center">
+                    <svg width="24" height="24" class="text-primary me-1">
+                      <use xlink:href="#star-solid"></use>
+                    </svg>
+                    {{ product_latest.average_rating|default_if_none:"0"|floatformat:1 }}
+                  </span>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col"><span class="price">Rs.{{ product_latest.discount_price }}</span></div>
+                <div class="col text-center" style="text-decoration: line-through;">
+                  <span class="ms-lg-3 ms-sm-4">Rs.{{ product_latest.selling_price }}</span>
+                </div>
+              </div>
+
+              <div class="d-flex align-items-center justify-content-between">
+                <div class="input-group product-qty">
+                  <span class="input-group-btn">
+                    <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
+                      <svg width="16" height="16">
+                        <use xlink:href="#minus"></use>
+                      </svg>
+                    </button>
+                  </span>
+                  <input type="text" id="quantity_{{ product_latest.id }}" name="quantity"
+                    class="form-control input-number" value="1">
+                  <span class="input-group-btn">
+                    <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
+                      <svg width="16" height="16">
+                        <use xlink:href="#plus"></use>
+                      </svg>
+                    </button>
+                  </span>
+                </div>
+                <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></iconify-icon></a>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="py-5 overflow-hidden">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="section-header d-flex justify-content-between">
+          <h2 class="text-muted"
+            style="font-family: 'Open Sans', sans-serif;font-optical-sizing: auto;font-weight:normal;font-style: normal;">
+            Most popular products</h2>
+          <div class="d-flex align-items-center">
+            <a href="#" class="btn-link text-decoration-none">View All Categories →</a>
+            <div class="swiper-buttons">
+              <button class="swiper-prev products-carousel-prev btn btn-primary">❮</button>
+              <button class="swiper-next products-carousel-next btn btn-primary">❯</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="products-carousel swiper">
+          <div class="swiper-wrapper">
+            {% for papular_product in papular %}
+            <div class="product-item swiper-slide">
+              <span class="badge position-absolute m-3 bg-success">{{ papular_product.discount_percent }}</span>
+              {% if user.is_authenticated %}
+              <div hx-get="{% url 'toggle_wishlist' papular_product.id %}" hx-trigger="load" hx-target="this"
+                hx-swap="outerHTML"></div>
+              {% endif %}
+              <figure>
+                <a href="{% url 'product_detail' papular_product.id %}" title="{{ papular_product.title }}">
+                  <img src="{{ papular_product.first_product_image.url }}" class="tab-image"
+                    alt="{{ papular_product.title }}">
+                </a>
+              </figure>
+              <h3>{{ papular_product.title }}</h3>
+              <div class="row align-items-center">
+                <div class="col">
+                 {% if papular_product.stock %}
+                 <span class="qty text-success">
+                  {{ papular_product.stock }} Unit
+                </span>
+                 {% else %}
+                 <span class="qty "style="color:tomato;">
+                  closed
+                </span>
+                 {% endif %}
+                </div>
+                <div class="col text-end">
+                  <span class="rating d-inline-flex align-items-center">
+                    <svg width="24" height="24" class="text-primary me-1">
+                      <use xlink:href="#star-solid"></use>
+                    </svg>
+                    {{ papular_product.average_rating|default_if_none:"0"|floatformat:1 }}
+                  </span>
+                </div>
+              </div>
+              
+
+              <div class="row">
+                <div class="col"><span class="price">Rs.{{ papular_product.discount_price }}</span></div>
+                <div class="col text-center" style="text-decoration: line-through;">
+                  <span class="ms-lg-3 ms-sm-4">Rs.{{ papular_product.selling_price }}</span>
+                </div>
+              </div>
+
+              <div class="d-flex align-items-center justify-content-between">
+                <div class="input-group product-qty">
+                  <span class="input-group-btn">
+                    <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus">
+                      <svg width="16" height="16">
+                        <use xlink:href="#minus"></use>
+                      </svg>
+                    </button>
+                  </span>
+                  <input type="text" id="quantity_{{ papular_product.id }}" name="quantity"
+                    class="form-control input-number" value="1">
+                  <span class="input-group-btn">
+                    <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus">
+                      <svg width="16" height="16">
+                        <use xlink:href="#plus"></use>
+                      </svg>
+                    </button>
+                  </span>
+                </div>
+                <a href="#" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></iconify-icon></a>
+              </div>
+            </div>
+            {% endfor %}
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="py-5">
+  <div class="container-fluid">
+    <div class="d-flex flex-wrap justify-content-center gap-3">
+      <div class="stat-card text-center bg-white p-4 shadow-sm rounded flex-grow-1"
+        style="min-width: 200px; max-width: 300px;">
+        <i class="bi bi-people fs-1 text-primary mb-3"></i>
+        <h3 class="fs-2 fw-bold">{{active_users}}+</h3>
+        <p class="text-muted mb-0">Active Users</p>
+      </div>
+      <div class="stat-card text-center bg-white p-4 shadow-sm rounded flex-grow-1"
+        style="min-width: 200px; max-width: 300px;">
+        <i class="bi bi-cart-fill fs-1 mb-3" style="color: rgba(0, 128, 0, 0.582);"></i>
+        <h3 class="fs-2 fw-bold" id="counter" data-total="{{ total_products }}">0</h3>
+        <p class="text-muted mb-0">Products</p>
+      </div>
+      <div class="stat-card text-center bg-white p-4 shadow-sm rounded flex-grow-1"
+        style="min-width: 200px; max-width: 300px;">
+        <i class="bi bi-cloud-download fs-1 text-success mb-3"></i>
+        <h3 class="fs-2 fw-bold">20+</h3>
+        <p class="text-muted mb-0">Downloads</p>
+      </div>
+      <div class="stat-card text-center bg-white p-4 shadow-sm rounded flex-grow-1"
+        style="min-width: 200px; max-width: 300px;">
+        <i class="bi bi-star-fill fs-1 mb-3" style="color: rgb(255, 174, 0);"></i>
+        <h3 class="fs-2 fw-bold">{{ avge_rating }} </h3>
+        <p class="text-muted mb-0">Average Rating</p>
+      </div>
+      <div class="stat-card text-center bg-white p-4 shadow-sm rounded flex-grow-1"
+        style="min-width: 200px; max-width: 300px;">
+        <i class="bi bi-globe fs-1 mb-3" style="color: rgba(0, 81, 255, 0.651);"></i>
+        <h3 class="fs-3 fw-light">Nepal</h3>
+        <p class="text-muted mb-0">Country</p>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      let counterElement = document.getElementById("counter");
+      let upto = parseInt(counterElement.getAttribute("data-total"), 10) || 0;  // Get Django value
+      let start = 0;
+      let speed = 50;
+
+      let counts = setInterval(() => {
+        counterElement.innerHTML = ++start;  // Increment the number
+
+        if (start === upto) {
+          counterElement.innerHTML = start + "+";  // Add "+" when the counter reaches the final value
+          clearInterval(counts);
+        }
+      }, speed);
+    });
+
+  </script>
+
+</section>
+
+
+<section id="latest-blog" class="py-5">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="section-header d-flex align-items-center justify-content-between my-5">
+        <h2 class="section-title"
+          style="font-family: 'Open Sans', sans-serif;font-optical-sizing: auto;font-weight:normal;font-style: normal;">
+          Our Recent Blog</h2>
+        <div class="btn-wrap align-right">
+          <a href="{% url 'blog_post' %}" class="d-flex align-items-center nav-link">Read All Articles <svg width="24"
+              height="24">
+              <use xlink:href="#arrow-right"></use>
+            </svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      {% for article in articles %}
+      <div class="col-md-4">
+        <article class="post-item card border-0 shadow-sm p-3">
+          <div class="image-holder zoom-effect">
+            <a href="{% url 'blog_view' article.id %}">
+              {% if article.image_urls %}
+              <img src="{{ article.image_urls.0 }}" alt="post" class="card-img-top">
+              {% else %}
+              <img src="path/to/default/image.jpg" alt="default post image" class="card-img-top">
+              {% endif %}
+            </a>
+          </div>
+          <div class="card-body">
+            <div class="post-meta d-flex text-uppercase gap-3 my-2 align-items-center">
+              <div class="meta-date">
+                <svg width="16" height="16">
+                  <use xlink:href="#calendar"></use>
+                </svg>
+                {{ article.created_at|date:"d M Y" }}
+              </div>
+              <div class="meta-categories">
+                <svg width="16" height="16">
+                  <use xlink:href="#category"></use>
+                </svg>
+                News
+              </div>
+            </div>
+            <div class="post-header text-justify">
+              <h3 class="post-title">
+                <a href="{% url 'blog_view' article.id %}" class="text-decoration-none">{{ article.title }}</a>
+              </h3>
+              <p class="text-justify">{{ article.content|truncatewords:30 |safe }}</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <a href="{% url 'blog_view' article.id %}" class="btn btn-dark mt-2">read more..</a>
+                <div>
+
+                  <button class="btn btn-outline-success btn-sm share-btn "
+                    onclick="sharePost('{{ article.title }}', '{% url 'blog_view' article.id %}')">
+                    <i class="bi bi-share"></i> Share
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+      {% endfor %}
+    </div>
+
+    <script>
+      function sharePost(title, url) {
+        if (navigator.share) {
+          navigator.share({
+            title: title,
+            url: url
+          }).then(() => console.log('Thanks for sharing!'))
+            .catch(console.error);
+        } else {
+          alert('Sharing is not supported in this browser.');
+        }
+      }
+    </script>
+
+  </div>
+</section>
+
+
+
+<section class="py-5">
+  <div class="container-fluid">
+    <div
+      style="background-image: url('{% static 'MainApp/images/background-pattern.jpg' %}');background-repeat: no-repeat;background-size: cover;"
+      class=" py-5 my-5 rounded-5">
+      <div class="container-fluid my-5">
+        <div class="row">
+          <div class="col-md-6 p-5">
+            <div class="section-header">
+              <h2 class="section-title display-4">Get <span class="text-primary">25% Discount</span> on your first
+                purchase</h2>
+            </div>
+            <p>Welcome to Gauley eCommerce – your go-to online shop for top-quality products at great prices. From
+              electronics to fashion, we offer fast shipping and excellent customer service, ensuring a smooth shopping
+              experience every time.</p>
+          </div>
+          <div class="col-md-6 p-5"
+            style="background: url('{% static 'MainApp/images/bg-leaves-img-pattern.png' %}') no-repeat;">
+            <form class="row g-3" action="{% url 'review' %}" method="POST">
+              {% csrf_token %}
+
+              <!-- Message Box -->
+              <div class="col-12">
+                <label for="message" class="form-label">Your thoughts </label>
+                <textarea class="form-control " style="border: 1px solid rgba(255, 187, 0, 0.658);" id="message"
+                  name="message" rows="7" required></textarea>
+              </div>
+
+              <!-- Rating Stars -->
+              <div class="rating d-flex justify-content-center gap-2">
+                <input type="radio" name="rating" value="5" id="5">
+                <label for="5" class="fs-2">☆</label>
+
+                <input type="radio" name="rating" value="4" id="4">
+                <label for="4" class="fs-2">☆</label>
+
+                <input type="radio" name="rating" value="3" id="3">
+                <label for="3" class="fs-2">☆</label>
+
+                <input type="radio" name="rating" value="2" id="2">
+                <label for="2" class="fs-2">☆</label>
+
+                <input type="radio" name="rating" value="1" id="1">
+                <label for="1" class="fs-2">☆</label>
+              </div>
+
+              <!-- Submit Button -->
+              <div class="col-12">
+                <button type="submit" class="btn btn-dark w-100 mt-2 p-2 fs-5">Support To Gauley</button>
+              </div>
+            </form>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+<section class="py-3">
+  <div class="container-fluid">
+    <!-- Responsive Google Map Embed -->
+    <div class="embed-responsive embed-responsive-16by9 p-4"
+      style="background-image:url({% static 'MainApp/images/background-pattern.jpg' %})">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3550.844226543516!2d84.95341287664765!3d27.12971597651854!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb54df14587e9d%3A0xd09c7b1368020380!2sJeetpur%20Simara%20Sub-Metropolitan%20Office!5e0!3m2!1sen!2snp!4v1743052992350!5m2!1sen!2snp"
+        width="100%" height="450" style="border-radius: 10px;" allowfullscreen="" loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="py-5">
+  <div class="container-fluid"
+    style="background-image: linear-gradient(to top,rgba(255, 241, 235, 0.27) 0%,rgba(172, 225, 249, 0) 100%);">
+    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        {% for reviews in Overall_review %}
+        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+          <div class="d-block w-100 text-center p-5">
+            <img src="{{reviews.avatar.url}}" alt="" srcset="">
+            <h2 class="text-muted"
+              style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+              {{ reviews.user | capfirst }}</h2>
+              <div class="d-flex justify-content-center gap-1">
+                {% for _ in ""|rjust:reviews.rating %}
+                    <span class="rating">
+                        <svg width="44" height="44" class="text-primary">
+                            <use xlink:href="#star-solid"></use>
+                        </svg>
+                    </span>
+                {% endfor %}
+            </div>
+            
+            <p class="fst-italic">
+              {{ reviews.comment | capfirst | truncatewords:20 }}
+
+            </p>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+      <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<section class="py-5">
+  <div class="container-fluid">
+    <h2 class="my-5"
+      style="font-family: 'Open Sans', sans-serif;font-optical-sizing: auto;font-weight:normal;font-style: normal;">
+      People are also looking for</h2>
+    <a href="#" class="btn btn-warning me-2 mb-2">Blue diamon almonds</a>
+    <a href="#" class="btn btn-warning me-2 mb-2">Angie’s Boomchickapop Corn</a>
+    <a href="#" class="btn btn-warning me-2 mb-2">Salty kettle Corn</a>
+    <a href="#" class="btn btn-warning me-2 mb-2">Chobani Greek Yogurt</a>
+    <a href="#" class="btn btn-warning me-2 mb-2">Sweet Vanilla Yogurt</a>
+    <a href="#" class="btn btn-warning me-2 mb-2">Foster Farms Takeout Crispy wings</a>
+    <a href="#" class="btn btn-warning me-2 mb-2">Warrior Blend Organic</a>
+    <a href="#" class="btn btn-warning me-2 mb-2">Chao Cheese Creamy</a>
+    <a href="#" class="btn btn-warning me-2 mb-2">Chicken meatballs</a>
+    <a href="#" class="btn btn-warning me-2 mb-2">Blue diamon almonds</a>
+    <a href="#" class="btn btn-warning me-2 mb-2">Angie’s Boomchickapop Corn</a>
+    <a href="#" class="btn btn-warning me-2 mb-2">Salty kettle Corn</a>
+    <a href="#" class="btn btn-warning me-2 mb-2">Chobani Greek Yogurt</a>
+    <a href="#" class="btn btn-warning me-2 mb-2">Sweet Vanilla Yogurt</a>
+    <a href="#" class="btn btn-warning me-2 mb-2">Foster Farms Takeout Crispy wings</a>
+    <a href="#" class="btn btn-warning me-2 mb-2">Warrior Blend Organic</a>
+    <a href="#" class="btn btn-warning me-2 mb-2">Chao Cheese Creamy</a>
+    <a href="#" class="btn btn-warning me-2 mb-2">Chicken meatballs</a>
+  </div>
+</section>
+<section class="py-5 my-5">
+  <div class="container-fluid">
+
+    <div class="bg-warnin py-5 rounded-5"
+      style="background-image: linear-gradient(to top,rgba(255, 255, 255, 0.24) 0%,rgba(254, 214, 227, 0.12) 100%);">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4">
+            <img src="{% static 'MainApp/images/phone.png' %}" alt="phone" class="image-float img-fluid">
+          </div>
+          <div class="col-md-8">
+            <h2 class="my-5 text-mutedyt"
+              style="font-family: 'Open Sans', sans-serif;font-optical-sizing: auto;font-weight:normal;font-style: normal;">
+              Shop faster with Gauley App | Coming Soon !</h2>
+            <p>Discover a seamless shopping experience with Gauley App—your go-to eCommerce platform. Enjoy fast
+              checkouts, exclusive deals, and easy navigation all in one place. Shop smarter, save time, and get what
+              you love delivered quickly!
+
+              Download now & start shopping! 🛍️</p>
+            <div class="d-flex gap-2 flex-wrap">
+              <img src="{% static 'MainApp/images/app-store.jpg' %}" alt="app-store">
+              <img src="{% static 'MainApp/images/google-play.jpg' %}" alt="google-play">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<section class="py-5">
+  <div class="container-fluid">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4"> <!-- Added gap and responsive columns -->
+      <!-- Delivery Card -->
+      <div class="col">
+        <div class="card mb-3 border-0">
+          <div class="row g-3">
+            <div class="col-md-3 text-center">
+              <img src="{% static 'MainApp/images/ItemsIcons/delivery.gif' %}" class="img-fluid"
+                style="max-width: 70px;" alt="Delivery icon">
+            </div>
+            <div class="col-md-9">
+              <div class="card-body p-0">
+                <h5>Delivery</h5>
+                <p class="card-text">Gauley Company offers free delivery on all orders! Enjoy fresh, quality food at
+                  your doorstep. 20% off delivery charge. Order now! 🚚 🚚</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Secure Payment Card -->
+      <div class="col">
+        <div class="card mb-3 border-0">
+          <div class="row g-3">
+            <div class="col-md-3 text-center">
+              <img src="{% static 'MainApp/images/ItemsIcons/secure.gif' %}" class="img-fluid" style="max-width: 60px;"
+                alt="Secure payment icon">
+            </div>
+            <div class="col-md-9">
+              <div class="card-body p-0">
+                <h5>100% Secure Payment</h5>
+                <p class="card-text">Gauley Company offers 100% secure payment for all orders, ensuring a safe and
+                  trusted transaction experience every time.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quality Guarantee Card -->
+      <div class="col">
+        <div class="card mb-3 border-0">
+          <div class="row g-3">
+            <div class="col-md-3 text-center">
+              <img src="{% static 'MainApp/images/ItemsIcons/medal.gif' %}" class="img-fluid" style="max-width: 70px;"
+                alt="Quality guarantee icon">
+            </div>
+            <div class="col-md-9">
+              <div class="card-body p-0">
+                <h5>Quality Guarantee</h5>
+                <p class="card-text">Gauley Company offers a quality guarantee on all products, ensuring that every item
+                  meets high standards for freshness and excellence.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Daily Offers Card -->
+      <div class="col">
+        <div class="card mb-3 border-0">
+          <div class="row g-3">
+            <div class="col-md-3 text-center">
+              <img src="{% static 'MainApp/images/ItemsIcons/gift.gif' %}" class="img-fluid" style="max-width: 60px;"
+                alt="Daily offers icon">
+            </div>
+            <div class="col-md-9">
+              <div class="card-body p-0">
+                <h5>Daily Offers</h5>
+                <p class="card-text">Gauley Company brings daily offers to help you save more on your favorite products.
+                  Check in every day for exciting deals!</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

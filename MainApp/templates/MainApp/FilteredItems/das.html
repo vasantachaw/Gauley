@@ -1,0 +1,42 @@
+{% extends 'MainApp/Layout.html' %} {% load static %} {% block title %} WishList
+{% endblock %} {% block main-content %}
+
+<section class="py-5">
+  <div class="container-fluid">
+    <div class="row">
+      <table>
+      
+        <tbody>
+            <tr>
+              
+                <td rowspan="3">John Doe</td>
+              
+                <td>New York</td>
+                
+            </tr>
+            <tr>
+              
+                <td>Jane Smith</td>
+               
+              
+            </tr>
+            <tr>
+               
+                <td >Michael Brown</td>
+               
+               
+                
+            </tr> <tr>
+               
+                <td colspan="2">Michael Brown</td>
+               
+              
+                
+            </tr>
+        </tbody>
+    </table>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

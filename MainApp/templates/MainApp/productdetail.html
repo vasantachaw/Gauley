@@ -1,0 +1,122 @@
+{% extends 'MainApp/Layout.html' %}
+{% load static %}
+{% block title %} Product View {% endblock title %}
+
+{% block main-content %}
+<section class="py-5 overflow-hidden mt-5">
+    <div class="container-fluid p-5 rounded" style="background-image: linear-gradient(to top, #f3e7e963 0%, #e3eeff00 99%, #e3eeff00 100%);">
+        <div class="row">
+            <!-- Product Image Section -->
+            <div class="col-12 col-md-6 text-center align-self-center">
+                <img src="{{ product.first_product_image.url }}" id="pImage" alt="" class="img-fluid bg-transparent" style=" cursor: pointer;filter: drop-shadow(15px 10px 5px #dd444418);">
+
+                <!-- Review Form -->
+                <form class="row mt-5" action="{% url 'productreview' product.id %}" method="POST">
+                    {% csrf_token %}
+
+                    <!-- Message Box -->
+                    <div class="col-12 mb-3">
+                        <textarea class="form-control " id="message" name="message" rows="3" style="border: 1px solid rgba(255, 187, 0, 0.658);background-color:white;" placeholder="Drop your thoughts..."></textarea>
+                    </div>
+
+                    <!-- Rating Stars -->
+                    <div class="rating d-flex justify-content-center gap-2 mb-3">
+                        <input type="radio" name="rating" value="5" id="5">
+                        <label for="5" class="fs-2">☆</label>
+                        <input type="radio" name="rating" value="4" id="4">
+                        <label for="4" class="fs-2">☆</label>
+                        <input type="radio" name="rating" value="3" id="3">
+                        <label for="3" class="fs-2">☆</label>
+                        <input type="radio" name="rating" value="2" id="2">
+                        <label for="2" class="fs-2">☆</label>
+                        <input type="radio" name="rating" value="1" id="1">
+                        <label for="1" class="fs-2">☆</label>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-dark w-50 mt-2 p-2 fs-5">Rate Me</button>
+                    </div>
+                </form>
+
+                <!-- Carousel for Reviews -->
+                <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        {% for review in reviews %}
+                        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                            <div class="d-block w-100 text-center p-5">
+                                <!-- Inline username and stars -->
+                                <div style="display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+                                    <!-- Username with smaller font size -->
+                                    <h2 class="text-muted" style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; font-size: 1.2rem; margin: 0;">
+                                        {{ review.user | capfirst }}
+                                    </h2>
+                                    <!-- Ratings section inline -->
+                                    <div class="ratings" id="ratings-{{ forloop.counter }}" style="font-size: 1.2rem; display: flex; gap: 0.2rem;">
+                                        {% for i in "54321" %}
+                                        <input type="radio" name="ratings-{{ forloop.counter }}" value="{{ i }}" id="star-{{ forloop.counter }}-{{ i }}" style="display: none;">
+                                        <label for="star-{{ forloop.counter }}-{{ i }}" style="cursor: pointer;">☆</label>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+
+                                <script>
+                                    (function() {
+                                        let ratingValue = {{ review.rating }};
+                                        let ratingInputs = document.querySelectorAll('#ratings-{{ forloop.counter }} input');
+                                        ratingInputs.forEach(input => {
+                                            if (parseInt(input.value) === ratingValue) {
+                                                input.checked = true;
+                                            }
+                                        });
+                                    })();
+                                </script>
+
+                                <p class="fst-italic">
+                                    {{ review.comment | capfirst | truncatewords:20 }}
+                                </p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Product Details Section -->
+            <div class="col-12 col-md-6 mt-4 mt-md-0">
+                <h2 class="text-muted" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">{{ product.title }}</h2>
+                <hr>
+                <p style="text-align: justify;">{{ product.description | safe }}</p>
+                <h4>Rs. {{ product.discount_price }} <small class="fw-light text-decoration-line-through">Rs. {{ product.selling_price }}</small></h4>
+                <br>
+
+                {% if request.user.is_authenticated %}
+                    {% if item_already_in_cart %}
+                        <a href="{% url 'show_cart' %}" class="btn btn-warning shadow px-5 py-2">Go To Cart</a>
+                    {% else %}
+                        <form action="/add-to-cart" class="d-inline">
+                            <input type="hidden" name="prod_id" value="{{ product.id }}" id="prod_id">
+                            <button type="submit" class="btn btn-primary shadow px-5 py-2">Add To Cart</button>
+                        </form>
+                    {% endif %}
+                {% else %}
+                    <form action="/add-to-cart" class="d-inline">
+                        <input type="hidden" name="prod_id" value="{{ product.id }}" id="prod_id">
+                        <button type="submit" class="btn btn-primary shadow px-5 py-2">Add To Cart</button>
+                    </form>
+                {% endif %}
+                <a href="{% url 'buy_now' product.id %}" class="btn btn-danger shadow px-5 py-2 ms-4" style="width:25%;">Buy Now</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock main-content %}

@@ -1,0 +1,30 @@
+{% extends 'MainApp/Layout.html' %}
+{% load static %}
+{% block title %} Orders {% endblock %}
+{% block main-content %}
+<section class="py-3 overflow-hidden mt-3">
+  <div class="container-fluid"
+    style=" background-image: linear-gradient(to top,rgba(243, 231, 233, 0.07) 0%,rgba(227, 238, 255, 0.1) 99%,rgba(227, 238, 255, 0.01) 100%);">
+    <div class="row justify-content-center">
+      <div class="col-12">
+        <form action="https://epay.esewa.com.np/api/epay/main/v2/form " method="POST">
+            <!-- Include Django template tags to dynamically generate the values -->
+            <input type="hidden" id="amount" name="amount" value="{{ esewa_data.amount }}" required>
+            <input type="hidden" id="tax_amount" name="tax_amount" value="0" required>
+            <input type="hidden" id="total_amount" name="total_amount" value="{{ esewa_data.total_amount }}" required>
+            <input type="hidden" id="transaction_uuid" name="transaction_uuid" value="{{ esewa_data.transaction_uuid }}" required>
+            <input type="hidden" id="product_code" name="product_code" value="EPAYTEST" required>
+            <input type="hidden" id="product_service_charge" name="product_service_charge" value="10" required>
+            <input type="hidden" id="product_delivery_charge" name="product_delivery_charge" value="10" required>
+            <input type="hidden" id="success_url" name="success_url" value="https://esewa.com.np" required>
+            <input type="hidden" id="failure_url" name="failure_url" value="https://google.com" required>
+            <input type="hidden" id="signed_field_names" name="signed_field_names" value="total_amount,transaction_uuid,product_code" required>
+            <input type="hidden" id="signature" name="signature" value="{{ esewa_data.signature }}" required>
+            <input value="Pay with  esewa" type="submit">
+        </form>
+        
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

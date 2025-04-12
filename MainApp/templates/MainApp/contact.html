@@ -1,0 +1,114 @@
+{% extends 'MainApp/Layout.html' %}
+{% load static %}
+{% block title %}
+  Contact us
+{% endblock %}
+
+{% block main-content %}
+<section class="py-5">
+  <div class="container-fluid">
+    <div style="background-image: url('{% static 'MainApp/images/background-pattern.jpg' %}'); background-repeat: no-repeat; background-size: cover;" class="py-5 my-5 rounded-5">
+      <div class="container-fluid my-5">
+        <div class="row">
+          <!-- Contact Form Section -->
+          <div class="col-md-6 p-4">
+            <div class="container mt-3">
+              <h2>Contact Us</h2>
+              <form action="{% url 'contact' %}" method="POST">
+                {% csrf_token %}
+                <!-- Full Name -->
+                <div class="mb-3">
+                  <label for="fullName" class="form-label">Full Name</label>
+                  <input type="text" class="form-control" id="fullName" name="full_name" placeholder="John Doe" style="border: 1px solid rgba(255, 187, 0, 0.658);">
+                </div>
+              
+                <!-- Gmail -->
+                <div class="mb-3">
+                  <label for="gmail" class="form-label">Gmail Address</label>
+                  <input type="email" class="form-control" id="gmail" name="gmail" placeholder="name@gmail.com" style="border: 1px solid rgba(255, 187, 0, 0.658);">
+                </div>
+              
+                <!-- Phone Number -->
+                <div class="mb-3">
+                  <label for="phoneNumber" class="form-label">Phone Number</label>
+                  <input type="tel" class="form-control" id="phoneNumber" name="phone_number" placeholder="(+977) 456-7890" style="border: 1px solid rgba(255, 187, 0, 0.658);">
+                </div>
+              
+                <!-- Subject -->
+                <div class="mb-3">
+                  <label for="subject" class="form-label">Subject</label>
+                  <input type="text" class="form-control" id="subject" name="subject" placeholder="Subject of your message" style="border: 1px solid rgba(255, 187, 0, 0.658);">
+                </div>
+              
+                <!-- Message -->
+                <div class="mb-3">
+                  <label for="message" class="form-label">Message</label>
+                  <textarea class="form-control" id="message" name="message" rows="7" placeholder="Your message here" style="border: 1px solid rgba(255, 187, 0, 0.658);"></textarea>
+                </div>
+              
+                <!-- Submit Button -->
+                <button type="submit" class="btn btn-primary w-100 mt-2 p-2 fs-5">Send</button>
+              </form>
+              
+            </div>
+          </div>
+
+          <!-- Contact Details Section -->
+          <div class="col-md-6 p-4" style="background: url('{% static 'MainApp/images/bg-leaves-img-pattern.png' %}') no-repeat; background-size: cover; background-position: center;">
+            <h3>Contact Details</h3>
+            <table class="table table-bordered table-striped">
+                <thead>
+                  <tr>
+                    <th>Detail</th>
+                    <th>Information</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Address</strong></td>
+                    <td>Jeetpur Simara, Bara, Nepal</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Support</strong></td>
+                    <td>(+977) 980-8046983</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Email</strong></td>
+                    <td><a href="mailto:gauley@gmail.com">gauley@gmail.com</a></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Website</strong></td>
+                    <td><a href="http://www.gauley.shop" target="_blank">www.gauley.shop</a></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3550.8442265435174!2d84.95341287619904!3d27.12971597651849!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb54df14587e9d%3A0xd09c7b1368020380!2sJeetpur%20Simara%20Sub-Metropolitan%20Office!5e0!3m2!1sen!2snp!4v1744442917519!5m2!1sen!2snp" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            
+            <table class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>Day</th>
+                  <th>Opening Hours</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Sunday - Monday</strong></td>
+                  <td>9:00 AM - 6:00 PM</td>
+                </tr>
+                
+                <tr>
+                  <td><strong>Saturday</strong></td>
+                  <td>Closed</td>
+                </tr>
+              </tbody>
+            </table>
+              
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

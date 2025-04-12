@@ -1,0 +1,18 @@
+{% extends "MainApp/Layout.html" %}
+{% load static %}
+{% block title %} Empty Cart {% endblock %}
+{% block main-content %}
+<section class="py-3"
+    style="background-image: url('images/background-pattern.jpg');background-repeat: no-repeat;background-size: cover;">
+    <div class="container-fluid">
+        <div class="row">
+           
+            <div class="text-center justify-content-center">
+                <img src="{% static 'MainApp/images/carts.gif' %}" alt="" srcset=""
+                    class="img-fluid img-thumbnail " style="width: 40%;margin-right: 5%;">
+            </div>
+        </div>
+    </div>
+
+</section>
+{% endblock %}

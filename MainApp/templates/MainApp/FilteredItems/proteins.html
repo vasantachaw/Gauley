@@ -1,0 +1,199 @@
+{% extends 'MainApp/Layout.html' %}
+{% load static %}
+{% block title %} Meeats {% endblock title %} 
+{% block main-content %}
+<section class="py-5 overflow-hidden">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="section-header d-flex flex-wrap justify-content-between mb-5">
+          <h2 class="section-title text-muted" style="font-family: 'Open Sans', sans-serif;font-optical-sizing: auto;font-weight:normal;font-style: normal;">Category</h2>
+
+          <div class="d-flex align-items-center">
+            <a href="#" class="btn-link text-decoration-none">View All Categories →</a>
+            <div class="swiper-buttons">
+              <button class="swiper-prev category-carousel-prev btn btn-yellow">❮</button>
+              <button class="swiper-next category-carousel-next btn btn-yellow">❯</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="category-carousel swiper">
+          <div class="swiper-wrapper">
+            <a href="{% url 'grocery' %}" class="nav-link category-item swiper-slide">
+              <img src="{% static 'MainApp/images/ItemsIcons/grocery.gif' %}"style="width: 80px;" alt="Category Thumbnail">
+              <h3 class="category-title">Grocery Items</h3>
+            </a>
+            <a href="{% url 'vegetables' %}" class="nav-link category-item swiper-slide">
+              <img src="{% static 'MainApp/images/ItemsIcons/vegetable.gif' %}"style="width: 80px;" alt="Category Thumbnail">
+              <h3 class="category-title">Vegetables</h3>
+            </a>
+            <a href="{% url 'instantfood' %}" class="nav-link category-item swiper-slide">
+              <img src="{% static 'MainApp/images/ItemsIcons/instantfood.gif' %}" style="width: 80px;" alt="Category Thumbnail">
+              <h3 class="category-title">Snacks Food</h3>
+            </a>
+            <a href="{% url 'fruits' %}" class="nav-link category-item swiper-slide">
+              <img src="{% static 'MainApp/images/ItemsIcons/fruits.gif' %}" style="width: 80px;" alt="Category Thumbnail">
+              <h3 class="category-title">Fruits</h3>
+            </a>
+            <a href="{% url 'dairy' %}" class="nav-link category-item swiper-slide">
+              <img src="{% static 'MainApp/images/ItemsIcons/dairy.gif' %}" style="width: 80px;" alt="Category Thumbnail">
+              <h3 class="category-title">Dairy</h3>
+            </a>
+            <a href="{% url 'beverage' %}" class="nav-link category-item swiper-slide">
+              <img src="{% static 'MainApp/images/ItemsIcons/beverage.gif' %}" style="width: 80px;" alt="Category Thumbnail" />
+              <h3 class="category-title">Drinks</h3>
+            </a>
+            <a href="{% url 'proteins' %}" class="nav-link category-item swiper-slide">
+              <img src="{% static 'MainApp/images/ItemsIcons/proteins.gif' %}" style="width: 80px;" alt="Category Thumbnail">
+              <h3 class="category-title">Proteins</h3>
+            </a>
+            <a href="{% url 'pickleAndJam' %}" class="nav-link category-item swiper-slide">
+              <img src="{% static 'MainApp/images/ItemsIcons/jam.gif' %}" style="width: 80px;" alt="Category Thumbnail">
+              <h3 class="category-title">Pickles & Jams</h3>
+            </a>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="py-5">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <h2 class="section-title text-muted text-center mb-6" style="margin-bottom:80px;font-family: 'Open Sans', sans-serif;font-optical-sizing: auto;font-weight:normal;font-style: normal;">Fresh Proteins</h2>
+        <form action="{% url 'filter' category_slug='Proteins' %}" method="GET">
+          {% csrf_token %}
+          <table class="table mb-4">
+            <thead>
+              <tr style="display: flex; justify-content: center;">
+                
+                <!-- Min Price Input -->
+                <th scope="col">
+                  <label class="sr-only" for="minprice">Min Price</label>
+                  <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">Min Price</div>
+                    </div>
+                    <input type="number" class="form-control" name="minprice"
+                           value="{{ request.GET.minprice|default:0 }}" 
+                           placeholder="1" 
+                           style="border:1px solid rgba(211, 211, 211, 0.418);">
+                  </div>
+                </th>
+        
+                <!-- Filter Button -->
+                <th scope="col">
+                  <button type="submit" class="btn btn-primary btn-sm" style="letter-spacing: 2px; font-size: 17px; color: black;">
+                    <i class="bi bi-filter"></i> Filter
+                  </button>
+                </th>
+        
+                <!-- Max Price Input -->
+                <th scope="col">
+                  <label class="sr-only" for="maxprice">Max Price</label>
+                  <div class="input-group mb-2">
+                    <input type="number" class="form-control" name="maxprice"
+                           value="{{ request.GET.maxprice|default:1000 }}" 
+                           placeholder="1000" 
+                           style="border:1px solid rgba(211, 211, 211, 0.418); text-align: end;">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">Max Price</div>
+                    </div>
+                  </div>
+                </th>
+              </tr>
+            </thead>
+          </table>
+      </form>
+        <div class="tab-content" id="nav-tabContent">
+          <div class="tab-pane fade show active" id="nav-all" role="tabpanel" aria-labelledby="nav-all-tab">
+            <div class="product-grid row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
+              {% for proteins in Proteins %}
+              <div class="col">
+                <div class="product-item">
+                  <span class="badge bg-success position-absolute m-3">{{ proteins.discount_percent }}</span>
+            
+                  {% if user.is_authenticated %}
+                    <div hx-get="{% url 'toggle_wishlist' proteins.id %}" hx-trigger="load" hx-target="this" hx-swap="outerHTML"></div>
+                  {% endif %}
+            
+                  <figure>
+                    <a href="{% url 'product_detail' proteins.id %}" title="{{ proteins.title }}">
+                      <img src="{{ proteins.first_product_image.url }}" class="tab-image" id="item" alt="{{ proteins.title }}" />
+                    </a>
+                  </figure>
+                  <h3>{{ proteins.title }}</h3>
+                  <div class="row align-items-center">
+                    <div class="col">
+                      {% if proteins.stock %}
+                      <span class="qty text-success">
+                       {{ proteins.stock }} Unit
+                     </span>
+                      {% else %}
+                      <span class="qty "style="color:tomato;">
+                       closed
+                     </span>
+                      {% endif %}                    </div>
+                    <div class="col text-end">
+                      <!-- Additional content can go here -->
+                    </div>
+                    <div class="col text-end">
+                      <span class="rating d-inline-flex align-items-center">
+                        <svg width="24" height="24" class="text-primary me-1">
+                          <use xlink:href="#star-solid"></use>
+                        </svg>
+                        {{ proteins.average_rating|default_if_none:"0"|floatformat:1 }}
+                      </span>
+                    </div>
+                  </div>
+                  
+            
+                  <div class="row">
+                    <div class="col">
+                      <span class="price">Rs.{{ proteins.discount_price }}</span>
+                    </div>
+                    <div class="col text-center">
+                      <span class="text-decoration-line-through ms-lg-3 ms-sm-4">Rs.{{ proteins.selling_price }}</span>
+                    </div>
+                  </div>
+                  <hr />
+                  <div class="d-flex align-items-center justify-content-between">
+                    <div class="input-group product-qty">
+                      <span class="input-group-btn">
+                        <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus" aria-label="Decrease Quantity">
+                          <svg width="16" height="16">
+                            <use xlink:href="#minus"></use>
+                          </svg>
+                        </button>
+                      </span>
+                      <input type="text" id="quantity" name="quantity" class="form-control input-number" value="1" aria-label="Quantity" />
+                      <span class="input-group-btn">
+                        <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus" aria-label="Increase Quantity">
+                          <svg width="16" height="16">
+                            <use xlink:href="#plus"></use>
+                          </svg>
+                        </button>
+                      </span>
+                    </div>
+                    <a href="{% url 'product_detail' proteins.id %}" class="nav-link">Add to Cart <iconify-icon icon="uil:shopping-cart"></iconify-icon></a>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+            
+            </div>
+            <!-- / product-grid -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

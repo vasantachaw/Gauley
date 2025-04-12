@@ -1,0 +1,53 @@
+{% extends 'MainApp/Layout.html' %}
+
+{% block title %}{{ blog_content.title }}{% endblock %}
+
+{% block main-content %}
+<section id="blog-detail" class="py-5">
+    <div class="container-fluid" 
+         style="border: 1px solid rgba(245, 220, 140, 0.44); padding: 4%; border-radius: 10px; background-color:rgba(248, 249, 250, 0.06);">
+        
+         <div class="d-flex flex-column align-items-end mb-2">
+            <!-- Date with Calendar Icon -->
+            <div class="d-flex align-items-center mb-1">
+                <svg width="20" height="20" class="me-2">
+                    <use xlink:href="#calendar"></use>
+                </svg>
+                <span class="text-muted">{{ blog_content.created_at|date:"d M Y" }}</span>
+            </div>
+            
+            <!-- Author Name with User Icon -->
+            <div class="d-flex align-items-center">
+                <svg width="20" height="20" class="me-2">
+                    <use xlink:href="#user"></use> <!-- User icon (use a specific icon for the author here) -->
+                </svg>
+                <span class="text-muted">Vasanta Chaw</span>
+            </div>
+        </div>
+        
+                <div class="d-flex justify-content-between align-items-start mb-4">
+            <!-- Date, Icon, and Author Section - positioned to the top-right -->
+            
+            <!-- Title Section -->
+            <div class="ms-3">
+                <h1 class="text-dark">{{ blog_content.title }}</h1>
+            </div>
+        </div>
+
+        <!-- Blog Content Section -->
+        <div class="mb-4">
+            <div style="text-align: justify; line-height: 1.6;">
+                {{ blog_content.content|safe }}
+            </div>
+        </div>
+
+        <!-- Optional: Add an image from the model field if it exists -->
+        {% if blog_content.image %}
+        <div class="text-center my-4">
+            <img src="{{ blog_content.image.url }}" alt="Blog Image" class="img-fluid rounded"
+                 style="max-width: 80%; height: auto;" />
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

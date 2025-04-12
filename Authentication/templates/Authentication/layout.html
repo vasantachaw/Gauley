@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gauley | {% block title %}{% endblock %} </title>
+    <link rel="shortcut icon" href="{% static 'Authentication/images/logo.png' %}" type="icon">
+
+    <link rel="stylesheet" href="{% static 'Authentication/css/style.css' %} " />
+  </head>
+  <body style"background-color:white;">
+   
+    
+    <main style="background-color: white;box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;">
+      <div class="box">
+        <div class="inner-box">
+          <div class="forms-wrap">
+            {% if messages %}
+            {% for message in messages %}
+            <span class="bg-{{message.tags}} p-2 fs-bold text-center">{{message}}</span>
+            {% endfor %}
+            {% endif %}
+      
+          
+            {% block form_page %}
+            
+            {% endblock %}           
+          </div>
+
+          <div class="carousel">
+            <div class="images-wrapper">
+              <img src="./img/image1.png" class="image img-1 show" alt="" />
+              <img src="./img/image2.png" class="image img-2" alt="" />
+              <img src="./img/image3.png" class="image img-3" alt="" />
+            </div>
+
+            <div class="text-slider">
+              <div class="text-wrap">
+                <div class="text-group">
+                  <h2>Create your own courses</h2>
+                  <h2>Customize as you like</h2>
+                  <h2>Invite students to your class</h2>
+                </div>
+              </div>
+
+              <div class="bullets">
+                <span class="active" data-value="1"></span>
+                <span data-value="2"></span>
+                <span data-value="3"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Javascript file -->
+
+    <script src="{% static 'Authentication/js/app.js' %}"></script>
+  </body>
+</html>
